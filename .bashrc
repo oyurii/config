@@ -42,6 +42,6 @@ if [ -d "$HOME/bin" ] ; then
         PATH="$HOME/bin:$PATH"
 fi
 
-export EDITOR=~/bin/nv
+export EDITOR=~/tools/micro/micro
 export TERM=xterm-256color
 

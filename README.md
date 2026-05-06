@@ -8,4 +8,5 @@ sudo apt-get install libopenmpi-dev
 
 Підключення Google-диска:
 from google.colab import drive
-drive.mount('/content/drive')
+drive.mount('/root/google_disk'
+
