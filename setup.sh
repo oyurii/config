@@ -8,7 +8,7 @@ mkdir -p \
 
 sudo apt install mc htop
 
-cp -rf ~/config/tools ~/tools
+cp -rf ~/config/tools ~
 cp -rf ~/config/bin ~
 cp -rf ~/config/.bashrc ~/.bashrc
 cp -rf ~/config/.selected_editor ~/.selected_editor
