@@ -16,6 +16,6 @@ cp -rf ~/config/.tmux.conf ~/.tmux.conf
 
 source ~/.bashrc
 
-./quantum_espresso_install.sh
-./lammps_install.sh
+~/config/quantum_espresso_install.sh
+~/config/lammps_install.sh
 
