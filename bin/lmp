@@ -1,4 +1,4 @@
 #!/bin/bash
 
-mpirun --use-hwthread-cpus -np 2 /root/tools/lammps/src/lmp_mpi -i $1
+mpirun --use-hwthread-cpus --allow-run-as-root -np 2 /root/tools/lammps/src/lmp_mpi -i $1
 
