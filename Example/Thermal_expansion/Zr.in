@@ -1,0 +1,55 @@
+#!/root/bin/lmp
+
+# Initialization
+units metal
+dimension 3
+boundary p p p
+atom_style atomic
+
+# Create hcp lattice
+# lattice custom 3.231 a1 1 0 0 a2 0 1.73205 0 a3 0 0 1.5926 basis 0 0 0 basis 0.5 0.5 0 basis 0.5 0.25 0.5 basis 0 0.75 0.5 orient x 1 0 0 orient y 0 1 0 orient z 0 0 1
+lattice hcp 3.231
+
+region box block 0 20 0 10 0 10
+create_box 1 box
+create_atoms 1 box
+
+# Define potential
+pair_style eam/fs
+pair_coeff * * ../Zr_3.eam.fs Zr
+
+mass 1 91.224
+
+# Write data in file
+variable cur_step equal step
+variable cur_time equal time
+variable cur_temp equal temp
+variable cur_pe equal pe
+variable cur_ke equal ke
+variable cur_vol equal vol
+variable cur_density equal density
+variable cur_lx equal lx
+variable cur_ly equal ly
+variable cur_lz equal lz
+
+variable a equal lx/20
+variable c equal lz/10
+variable cdeva equal v_a/v_c
+
+# Define thermodynamics
+thermo 100
+thermo_style custom step temp press pe ke etotal lx ly lz v_a v_c
+
+timestep 0.001
+
+# Dump atomic configurations
+dump 1 all custom 10 alpha_Zr.dump id type x y z
+
+velocity all create 300 1 rot yes dist gaussian
+fix 1 all npt temp 300 300 0.2 iso 0 0 0.2 drag 0.5
+fix res all print 1 "${cur_step} ${cur_time} ${cur_vol} ${cur_density} ${cur_temp} ${cur_pe} ${cur_ke} ${cur_lx} ${cur_ly} ${cur_lz} ${a} ${c} ${cdeva}" title "Step Time[ps] Volume[Angstrom^3] Density[gram/cm^3] T[K] E_p[eV] E_k[eV] Lx[Angstrom] Ly[Angstrom] Lz[Angstrom] a[Angstrom] c[Angstrom] c/a" file out.csv screen no
+run 1000
+unfix 1
+
+# End of script
+
