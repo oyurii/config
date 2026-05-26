@@ -56,9 +56,9 @@ variable E0 equal $E
 #delete_atoms group pointdefect compress yes
 
 group group_Zr type 1
-delete_atoms random count 1 no group_Zr NULL 100
-# group vac id 1
-# delete_atoms group vac
+# delete_atoms random count 1 no group_Zr NULL 100
+group vac id 2
+delete_atoms group vac
 
 #group sub_freeze id <= ${No}
 fix 1 all setforce 0.0 0.0 0.0
@@ -69,10 +69,10 @@ minimize 1e-15 1e-15 10000 10000
 variable Ef equal "c_eatoms"
 variable Ev equal (${Ef}-((${No}-1)/${No})*${E0})
 variable Ec equal (-${E0}/${No})
+######################################
 
 #---------------------------------------------
 
-######################################
 # SIMULATION DONE
 print "All done"
 print "Total number of atoms = ${No}"
